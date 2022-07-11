@@ -1,0 +1,13 @@
+- Kitap crud
+- user crud
+- controller advice
+-
+
+
+
+
+
+
+Sorulacaklar:
+- Book olayını sor (extra document olarak saklamak gerekli mi id vs.)
+- Eklenme tarihini sor

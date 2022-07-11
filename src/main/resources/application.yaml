@@ -1,0 +1,14 @@
+spring:
+  data:
+    mongodb:
+      database: bookmore
+      port: 27017
+      host: localhost
+      auto-index-creation: false
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  main:
+    allow-circular-references: true
+server:
+  port: 8090
