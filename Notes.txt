@@ -11,12 +11,13 @@
 Sorulacaklar:
 - Book olayını sor (extra document olarak saklamak gerekli mi id vs.)
 - dökümantasyon yorum satırları doğru mu?
+- ResponseStatus reason parametresi nereye döner?
+- Hata mesajları görünmüyor.
 
 User crud:
      create +
      delete +
      get +
-     update -
 
      Book Part:
          getBooks -
@@ -25,8 +26,10 @@ User crud:
 
 
 
- fix:
+baver fix:
      - exception description
      - user oluştururken email ve username'i kontrol et.
-     - loglar ve yorum satırları eklenecek.
 
+
+batu fix:
+    + User'a createdtime, updatetime ve version

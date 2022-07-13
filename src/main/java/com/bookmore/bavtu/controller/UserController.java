@@ -2,9 +2,11 @@ package com.bookmore.bavtu.controller;
 
 
 import com.bookmore.bavtu.exception.BadPasswordException;
+import com.bookmore.bavtu.exception.IncorrectPasswordException;
 import com.bookmore.bavtu.exception.UserNotFoundException;
 import com.bookmore.bavtu.model.api.UserCreateRequest;
 import com.bookmore.bavtu.model.api.UserDeleteRequest;
+import com.bookmore.bavtu.model.api.UserUpdateRequest;
 import com.bookmore.bavtu.model.dto.UserDTO;
 import com.bookmore.bavtu.service.impl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -40,13 +42,18 @@ public class UserController {
         return userService.delete(userDeleteRequest);
     }
 
+    @PatchMapping("/update")
+    public ResponseEntity<UserDTO> update(@Valid @RequestBody UserUpdateRequest userUpdateRequest){
+        return userService.update(userUpdateRequest);
+    }
+
 
     /**
     *   EXCEPTION HANDLERS
     */
 
     @ExceptionHandler(BadPasswordException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Invalid password.")
     public void handleBadPasswordException(BadPasswordException ex) {
         log.error("BadPasswordException occurred");
     }
@@ -56,4 +63,8 @@ public class UserController {
     public void handleUserNotFoundException(UserNotFoundException ex){
         log.error("UserNotFoundException occurred");
     }
+
+    @ExceptionHandler(IncorrectPasswordException.class)
+    @ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE, reason = "Incorrect password entered.")
+    public void handleIncorrectPasswordException(IncorrectPasswordException ex){log.error("IncorrectPasswordException");}
 }
