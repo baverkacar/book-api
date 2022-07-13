@@ -8,4 +8,6 @@ import org.springframework.data.repository.query.Param;
 public interface UserRepository extends MongoRepository<User, String> {
     @Query("{username:'?0'}")
     public  User findByUsername(@Param("username") String username);
+
+
 }

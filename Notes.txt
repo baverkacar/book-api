@@ -1,8 +1,8 @@
-- Kitap crud
 - user crud
-- controller advice
--
-
+- exception dökümantasyanı (yapılacak)
+- google api
+- swagger'ı düzenleyecez
+- login
 
 
 
@@ -10,4 +10,26 @@
 
 Sorulacaklar:
 - Book olayını sor (extra document olarak saklamak gerekli mi id vs.)
-- Eklenme tarihini sor
+- dökümantasyon yorum satırları doğru mu?
+- ResponseStatus reason parametresi nereye döner?
+- Hata mesajları görünmüyor.
+
+User crud:
+     create +
+     delete +
+     get +
+
+     Book Part:
+         getBooks -
+         addBook -
+         deleteBook -
+
+
+
+baver fix:
+     - exception description
+     - user oluştururken email ve username'i kontrol et.
+
+
+batu fix:
+    + User'a createdtime, updatetime ve version
