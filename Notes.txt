@@ -13,11 +13,13 @@ Sorulacaklar:
 - dökümantasyon yorum satırları doğru mu?
 - ResponseStatus reason parametresi nereye döner?
 - Hata mesajları görünmüyor.
+- lambda expression
 
 User crud:
      create +
      delete +
      get +
+     update +
 
      Book Part:
          getBooks -
@@ -28,8 +30,9 @@ User crud:
 
 baver fix:
      - exception description
-     - user oluştururken email ve username'i kontrol et.
+     + user oluştururken email ve username'i kontrol et.
 
 
 batu fix:
     + User'a createdtime, updatetime ve version
+    + inner username-email check method

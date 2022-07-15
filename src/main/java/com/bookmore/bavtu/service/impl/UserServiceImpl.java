@@ -17,6 +17,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.ExecutionException;
+
 @Service
 @Slf4j //logger
 @RequiredArgsConstructor
@@ -33,6 +35,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity<UserDTO> create(UserCreateRequest userCreateRequest) throws BadPasswordException{
         try{
+            //Checking given username and email are already exist or not.
+            if(isUsernameExists(userCreateRequest.getUsername()) || isEmailExists(userCreateRequest.getEmail())){
+                log.error("This email or username are already in use.");
+                return new ResponseEntity(null, HttpStatus.BAD_REQUEST);
+            }
             // Mapping userCreateRequest api model to User mongodb document. Then saving it to Database.
             User user = userMapper.userCreateRequestToUser(userCreateRequest);
             user = userRepository.save(user);
@@ -44,7 +51,6 @@ public class UserServiceImpl implements UserService {
         catch (BadPasswordException badPasswordException){
             throw new BadPasswordException("Invalid Password");
         }
-
     }
 
     /**
@@ -104,5 +110,21 @@ public class UserServiceImpl implements UserService {
             return new ResponseEntity(userMapper.userToUserDTO(user), HttpStatus.OK);
         }
         throw new IncorrectPasswordException("Password do not matched");
+    }
+
+
+    /**
+     * INNER METHODS
+     */
+    //Checking username existence, if username exists returns true
+    public boolean isUsernameExists(String username){
+        User user = userRepository.findByUsername(username);
+        return user != null ? true : false;
+    }
+
+    //Checking email existence, if email exists returns true
+    public boolean isEmailExists(String email){
+        User user = userRepository.findByEmail(email);
+        return user != null ? true : false;
     }
 }
