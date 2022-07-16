@@ -5,9 +5,9 @@ import com.bookmore.bavtu.exception.BadPasswordException;
 import com.bookmore.bavtu.exception.IncorrectPasswordException;
 import com.bookmore.bavtu.exception.UserNotFoundException;
 import com.bookmore.bavtu.mapper.UserMapper;
-import com.bookmore.bavtu.model.api.UserCreateRequest;
-import com.bookmore.bavtu.model.api.UserDeleteRequest;
-import com.bookmore.bavtu.model.api.UserUpdateRequest;
+import com.bookmore.bavtu.model.api.user.UserCreateRequest;
+import com.bookmore.bavtu.model.api.user.UserDeleteRequest;
+import com.bookmore.bavtu.model.api.user.UserUpdateRequest;
 import com.bookmore.bavtu.model.dto.UserDTO;
 import com.bookmore.bavtu.repository.UserRepository;
 import com.bookmore.bavtu.service.UserService;
@@ -16,8 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.concurrent.ExecutionException;
 
 @Service
 @Slf4j //logger

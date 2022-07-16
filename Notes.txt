@@ -1,6 +1,7 @@
-- user crud
++ user crud
 - exception dökümantasyanı (yapılacak)
-- google api
++ google api
+- json parsing
 - swagger'ı düzenleyecez
 - login
 
@@ -14,25 +15,18 @@ Sorulacaklar:
 - ResponseStatus reason parametresi nereye döner?
 - Hata mesajları görünmüyor.
 - lambda expression
-
-User crud:
-     create +
-     delete +
-     get +
-     update +
-
-     Book Part:
-         getBooks -
-         addBook -
-         deleteBook -
+- dinamik url
+- pojo sınıfları
+- bazılarında author, publisher yok bu yüzden hata veriyor onu nasıl halledicez? (pojoda halloluyor)
 
 
+Book Part:
+    - getBooks
+    - addBook
+    - deleteBook
 
-baver fix:
-     - exception description
-     + user oluştururken email ve username'i kontrol et.
-
-
-batu fix:
-    + User'a createdtime, updatetime ve version
-    + inner username-email check method
+Fix:
+    - exception description.
+    - googlebook response'ı arrayliste çevir.
+    - image ekleyemiyoruz bazılarında yok pojo yapmak lazım
+    - google-api-wrapper'a yorum satırı

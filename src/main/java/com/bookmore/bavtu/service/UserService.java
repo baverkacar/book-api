@@ -1,8 +1,8 @@
 package com.bookmore.bavtu.service;
 
-import com.bookmore.bavtu.model.api.UserCreateRequest;
-import com.bookmore.bavtu.model.api.UserDeleteRequest;
-import com.bookmore.bavtu.model.api.UserUpdateRequest;
+import com.bookmore.bavtu.model.api.user.UserCreateRequest;
+import com.bookmore.bavtu.model.api.user.UserDeleteRequest;
+import com.bookmore.bavtu.model.api.user.UserUpdateRequest;
 import com.bookmore.bavtu.model.dto.UserDTO;
 import org.springframework.http.ResponseEntity;
 

@@ -1,26 +1,23 @@
-package com.bookmore.bavtu.model.api;
-
+package com.bookmore.bavtu.model.api.user;
 
 import com.bookmore.bavtu.validation.ValidPassword;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 @Data
 @Builder
-public class UserCreateRequest {
+public class UserUpdateRequest {
 
     @NotEmpty
-    private String username;
+    private String id;
 
     @NotEmpty
-    @Email
-    private String email;
+    private String oldPassword;
 
     @NotEmpty
     @ValidPassword
-    private String password;
+    private String newPassword;
 
 }

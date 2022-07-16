@@ -12,8 +12,10 @@ import java.time.LocalDateTime;
 @Data
 public class Book {
     private String name;
-    private String author;
+    private String[] authors;
     private String publisher;
     private String publishedAt;
     private String image;
+    private String description;
+    private String category;
 }

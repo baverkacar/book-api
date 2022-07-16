@@ -1,4 +1,4 @@
-package com.bookmore.bavtu.model.api;
+package com.bookmore.bavtu.model.api.user;
 
 
 import com.bookmore.bavtu.validation.ValidPassword;
