@@ -1,6 +1,8 @@
 package com.bookmore.bavtu.service.impl;
 
 
+import com.bookmore.bavtu.exception.BadPasswordException;
+import com.bookmore.bavtu.model.api.book.GoogleBookAPIResponse;
 import com.bookmore.bavtu.model.api.book.GoogleBookVolumeInfo;
 import com.bookmore.bavtu.service.GoogleBooksAPIService;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 
 @Service
 @Slf4j //logger
@@ -19,34 +23,15 @@ import org.springframework.web.client.RestTemplate;
 public class GoogleBooksAPIServiceImpl implements GoogleBooksAPIService {
 
     private final RestTemplate restTemplate = new RestTemplate();
+
+    /**
+     * @param  name
+     * @return GoogleBookAPIRespone - Http Status: 200 (OK)
+     */
     @Override
     public ResponseEntity<GoogleBookVolumeInfo[]> get(String name) {
-        String url = API_URL + "?q=" +"intitle:" + name + "&printType=books" +  "&key=" + API_KEY;
-        System.out.println(url);
-        ResponseEntity<String> response =  restTemplate.getForEntity(url, String.class);
-        String responseBody = response.getBody();
-        GoogleBookVolumeInfo[] books = jsonToGoogleBook(responseBody);
-        return new ResponseEntity(books, HttpStatus.OK);
-    }
-
-    private GoogleBookVolumeInfo[] jsonToGoogleBook(String json){
-
-        JSONObject GoogleBookResponse = new JSONObject(json);
-        JSONArray items = GoogleBookResponse.getJSONArray("items");
-        GoogleBookVolumeInfo[] books = new GoogleBookVolumeInfo[items.length()];
-
-        for (int index = 0; index < books.length; index++){
-            if(index < MAX_RESULT){
-                JSONObject volumeInfo = items.getJSONObject(index).getJSONObject("volumeInfo");
-                GoogleBookVolumeInfo googleBookVolumeInfo = GoogleBookVolumeInfo.builder()
-                        .title(volumeInfo.getString("title"))
-                        .author(volumeInfo.getJSONArray("authors").getString(0))
-                        .publishedDate(volumeInfo.getString("publishedDate"))
-                        .build();
-                books[index] = googleBookVolumeInfo;
-            }else break;
-        }
-
-        return books;
+        String url = API_URL + "?q=" +"intitle:" + name + "&maxResults="+ MAX_RESULT +"&printType=books" +  "&key=" + API_KEY;
+        ResponseEntity<GoogleBookAPIResponse> googleBookAPIResponse =  restTemplate.getForEntity(url, GoogleBookAPIResponse.class);
+        return new ResponseEntity(googleBookAPIResponse, HttpStatus.OK);
     }
 }

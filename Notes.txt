@@ -1,9 +1,9 @@
 + user crud
 - exception dökümantasyanı (yapılacak)
 + google api
-- json parsing
 - swagger'ı düzenleyecez
 - login
+- cache (son arananlar)
 
 
 
@@ -15,9 +15,9 @@ Sorulacaklar:
 - ResponseStatus reason parametresi nereye döner?
 - Hata mesajları görünmüyor.
 - lambda expression
-- dinamik url
-- pojo sınıfları
-- bazılarında author, publisher yok bu yüzden hata veriyor onu nasıl halledicez? (pojoda halloluyor)
+- imageLinks gelmiyor onu sor.
+- api key nasıl saklanır.
+- google api get methoduna nasıl bir exception oluşturabiliriz?
 
 
 Book Part:
@@ -27,6 +27,4 @@ Book Part:
 
 Fix:
     - exception description.
-    - googlebook response'ı arrayliste çevir.
-    - image ekleyemiyoruz bazılarında yok pojo yapmak lazım
     - google-api-wrapper'a yorum satırı

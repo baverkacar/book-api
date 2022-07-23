@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 public interface GoogleBooksAPIService {
     String API_URL = "https://www.googleapis.com/books/v1/volumes";
     String API_KEY = "AIzaSyBrm7H7Q5X3piMnzcDqabLEOarJrcwVV6U";
-    int MAX_RESULT = 6;
+    int MAX_RESULT = 10;
 
     public ResponseEntity<GoogleBookVolumeInfo[]> get(String name);
 
