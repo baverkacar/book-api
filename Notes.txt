@@ -16,8 +16,8 @@ Sorulacaklar:
 
 
 Yapılacaklar:
-    - controller adviser yeni class exceptionlar için
-    - hata için dto oluşturup
+    + controller adviser yeni class exceptionlar için
+    + hata için dto oluşturup
     - javadoc
 
 Book Part:
