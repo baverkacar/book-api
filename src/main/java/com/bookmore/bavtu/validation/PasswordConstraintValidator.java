@@ -44,6 +44,6 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
             return true;
         }
 
-        throw new BadPasswordException("Invalid Password");
+        throw new BadPasswordException("Bad Password");
     }
 }

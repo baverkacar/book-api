@@ -46,24 +46,4 @@ public class UserController {
     public ResponseEntity<UserDTO> update(@Valid @RequestBody UpdateUserPasswordRequest updateUserPasswordRequest){
         return userService.update(updateUserPasswordRequest);
     }
-
-
-    /**
-    *   EXCEPTION HANDLERS
-    */
-    @ExceptionHandler(BadPasswordException.class)
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Invalid password.")
-    public void handleBadPasswordException(BadPasswordException ex) {
-        log.error("BadPasswordException occurred");
-    }
-
-    @ExceptionHandler(UserNotFoundException.class)
-    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "User not found")
-    public void handleUserNotFoundException(UserNotFoundException ex){
-        log.error("UserNotFoundException occurred");
-    }
-
-    @ExceptionHandler(IncorrectPasswordException.class)
-    @ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE, reason = "Incorrect password entered.")
-    public void handleIncorrectPasswordException(IncorrectPasswordException ex){log.error("IncorrectPasswordException");}
 }
