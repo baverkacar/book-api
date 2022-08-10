@@ -10,15 +10,15 @@
 
 
 Sorulacaklar:
-- Book olayını sor (extra document olarak saklamak gerekli mi id vs.)
-- dökümantasyon yorum satırları doğru mu?
-- ResponseStatus reason parametresi nereye döner?
-- Hata mesajları görünmüyor.
-- lambda expression
-- imageLinks gelmiyor onu sor.
-- api key nasıl saklanır.
+- ResponseStatus reason parametresi nereye döner? (batu)
 - google api get methoduna nasıl bir exception oluşturabiliriz?
+- api key saklama?(secrethub-yaml)
 
+
+Yapılacaklar:
+    - controller adviser yeni class exceptionlar için
+    - hata için dto oluşturup
+    - javadoc
 
 Book Part:
     - getBooks

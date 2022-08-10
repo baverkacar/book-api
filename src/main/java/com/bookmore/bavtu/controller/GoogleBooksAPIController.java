@@ -18,7 +18,6 @@ public class GoogleBooksAPIController {
 
     private final GoogleBooksAPIServiceImpl googleBooksAPIService;
 
-
     @GetMapping("/{name}")
     public ResponseEntity<GoogleBookVolumeInfo[]> get(@PathVariable String name){
         return googleBooksAPIService.get(name);

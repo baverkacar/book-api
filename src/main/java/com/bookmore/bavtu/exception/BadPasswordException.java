@@ -11,5 +11,4 @@ public class BadPasswordException extends RuntimeException {
     public BadPasswordException(String msg) {
         super(msg);
     }
-
 }

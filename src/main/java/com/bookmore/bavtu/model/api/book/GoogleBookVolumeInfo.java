@@ -14,4 +14,5 @@ public class GoogleBookVolumeInfo {
     public String publishedDate;
     public int pageCount;
     public String mainCategory;
+    public ImageLinks imageLinks;
 }

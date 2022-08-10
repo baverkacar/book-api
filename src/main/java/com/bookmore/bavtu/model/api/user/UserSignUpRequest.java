@@ -10,7 +10,7 @@ import javax.validation.constraints.NotEmpty;
 
 @Data
 @Builder
-public class UserCreateRequest {
+public class UserSignUpRequest {
 
     @NotEmpty
     private String username;

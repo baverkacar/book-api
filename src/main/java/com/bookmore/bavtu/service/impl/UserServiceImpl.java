@@ -5,9 +5,9 @@ import com.bookmore.bavtu.exception.BadPasswordException;
 import com.bookmore.bavtu.exception.IncorrectPasswordException;
 import com.bookmore.bavtu.exception.UserNotFoundException;
 import com.bookmore.bavtu.mapper.UserMapper;
-import com.bookmore.bavtu.model.api.user.UserCreateRequest;
-import com.bookmore.bavtu.model.api.user.UserDeleteRequest;
-import com.bookmore.bavtu.model.api.user.UserUpdateRequest;
+import com.bookmore.bavtu.model.api.user.UserSignUpRequest;
+import com.bookmore.bavtu.model.api.user.DeleteUserRequest;
+import com.bookmore.bavtu.model.api.user.UpdateUserPasswordRequest;
 import com.bookmore.bavtu.model.dto.UserDTO;
 import com.bookmore.bavtu.repository.UserRepository;
 import com.bookmore.bavtu.service.UserService;
@@ -26,29 +26,25 @@ public class UserServiceImpl implements UserService {
 
     /**
      * Create user method
-     * @param userCreateRequest
+     * @param userSignUpRequest
      * @return UserDTO - Http Status: 201 (CREATED)
      * @throws BadPasswordException
      */
     @Override
-    public ResponseEntity<UserDTO> create(UserCreateRequest userCreateRequest) throws BadPasswordException{
-        try{
-            //Checking given username and email are already exist or not.
-            if(isUsernameExists(userCreateRequest.getUsername()) || isEmailExists(userCreateRequest.getEmail())){
-                log.error("This email or username are already in use.");
-                return new ResponseEntity(null, HttpStatus.BAD_REQUEST);
-            }
-            // Mapping userCreateRequest api model to User mongodb document. Then saving it to Database.
-            User user = userMapper.userCreateRequestToUser(userCreateRequest);
-            user = userRepository.save(user);
+    public ResponseEntity<UserDTO> create(UserSignUpRequest userSignUpRequest) throws BadPasswordException{
+        //Checking given username and email are already exist or not.
+        if(isUsernameExists(userSignUpRequest.getUsername()) || isEmailExists(userSignUpRequest.getEmail())){
+            log.error("This email or username are already in use.");
+            return new ResponseEntity(null, HttpStatus.BAD_REQUEST);
+        }
+        // Mapping userCreateRequest api model to User mongodb document. Then saving it to Database.
+        User user = userMapper.userSignUpRequestToUser(userSignUpRequest);
+        user = userRepository.save(user);
 
-            // After saving user, maps User to UserDTO model to returns it.
-            log.info("New user created with id: " + user.getId());
-            return new ResponseEntity(userMapper.userToUserDTO(user), HttpStatus.CREATED);
-        }
-        catch (BadPasswordException badPasswordException){
-            throw new BadPasswordException("Invalid Password");
-        }
+        // After saving user, maps User to UserDTO model to returns it.
+        log.info("New user created with id: " + user.getId());
+        return new ResponseEntity(userMapper.userToUserDTO(user), HttpStatus.CREATED);
+
     }
 
     /**
@@ -67,61 +63,57 @@ public class UserServiceImpl implements UserService {
 
     /**
      * Delete user method
-     * @param userDeleteRequest
+     * @param deleteUserRequest
      * @return String - Http Status: 200 (OK)
      * @throws UserNotFoundException
      * @throws BadPasswordException
      */
     @Override
-    public ResponseEntity<String> delete(UserDeleteRequest userDeleteRequest) {
+    public ResponseEntity<String> delete(DeleteUserRequest deleteUserRequest) {
         // Getting user id and checks if user's existence.
-        String userId = userDeleteRequest.getId();
+        String userId = deleteUserRequest.getId();
         User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found with given id."));
 
         // Checking passwords' equality.
-        if(user.getPassword().equals(userDeleteRequest.getPassword())){
+        if(user.getPassword().equals(deleteUserRequest.getPassword())){
             log.info("User deleted with given id: " + user.getId());
             userRepository.delete(user);
             return new ResponseEntity("User deleted with given id: " + userId, HttpStatus.OK);
         }
-        throw new BadPasswordException("Invalid password");
+        throw new IncorrectPasswordException("delete user password not match");
     }
-
 
     /**
      * Update user's password method
-     * @param userUpdateRequest
+     * @param updateUserPasswordRequest
      * @return UserDTO - Http Status: 200 (OK)
      * @throws UserNotFoundException
      * @throws IncorrectPasswordException
      */
     @Override
-    public ResponseEntity<UserDTO> update(UserUpdateRequest userUpdateRequest) {
-        String userId = userUpdateRequest.getId();
+    public ResponseEntity<UserDTO> update(UpdateUserPasswordRequest updateUserPasswordRequest) {
+        String userId = updateUserPasswordRequest.getId();
         User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found with given id."));
 
-        String userPassword = userUpdateRequest.getOldPassword();
+        String userPassword = updateUserPasswordRequest.getCurrentPassword();
         if(user.getPassword().equals(userPassword)){
-            user.setPassword(userUpdateRequest.getNewPassword());
+            user.setPassword(updateUserPasswordRequest.getNewPassword());
             userRepository.save(user);
             log.info("User's password changed successfully with given id: " + userId);
             return new ResponseEntity(userMapper.userToUserDTO(user), HttpStatus.OK);
         }
-        throw new IncorrectPasswordException("Password do not matched");
+        throw new IncorrectPasswordException("update Password do not matched");
     }
-
 
     /**
      * INNER METHODS
      */
-    //Checking username existence, if username exists returns true
-    public boolean isUsernameExists(String username){
+    private boolean isUsernameExists(String username){
         User user = userRepository.findByUsername(username);
         return user != null ? true : false;
     }
 
-    //Checking email existence, if email exists returns true
-    public boolean isEmailExists(String email){
+    private boolean isEmailExists(String email){
         User user = userRepository.findByEmail(email);
         return user != null ? true : false;
     }
