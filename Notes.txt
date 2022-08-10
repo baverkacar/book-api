@@ -1,38 +1,30 @@
-- user crud
++ user crud
 - exception dökümantasyanı (yapılacak)
-- google api
++ google api
 - swagger'ı düzenleyecez
 - login
+- cache (son arananlar)
 
 
 
 
 
 Sorulacaklar:
-- Book olayını sor (extra document olarak saklamak gerekli mi id vs.)
-- dökümantasyon yorum satırları doğru mu?
-- ResponseStatus reason parametresi nereye döner?
-- Hata mesajları görünmüyor.
-- lambda expression
-
-User crud:
-     create +
-     delete +
-     get +
-     update +
-
-     Book Part:
-         getBooks -
-         addBook -
-         deleteBook -
+- ResponseStatus reason parametresi nereye döner? (batu)
+- google api get methoduna nasıl bir exception oluşturabiliriz?
+- api key saklama?(secrethub-yaml)
 
 
+Yapılacaklar:
+    - controller adviser yeni class exceptionlar için
+    - hata için dto oluşturup
+    - javadoc
 
-baver fix:
-     - exception description
-     + user oluştururken email ve username'i kontrol et.
+Book Part:
+    - getBooks
+    - addBook
+    - deleteBook
 
-
-batu fix:
-    + User'a createdtime, updatetime ve version
-    + inner username-email check method
+Fix:
+    - exception description.
+    - google-api-wrapper'a yorum satırı
