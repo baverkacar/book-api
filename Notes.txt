@@ -1,30 +1,21 @@
 + user crud
-- exception dökümantasyanı (yapılacak)
 + google api
 - swagger'ı düzenleyecez
 - login
 - cache (son arananlar)
 
-
-
-
-
 Sorulacaklar:
-- ResponseStatus reason parametresi nereye döner? (batu)
 - google api get methoduna nasıl bir exception oluşturabiliriz?
 - api key saklama?(secrethub-yaml)
-
+- pagination'ı nasıl yapacagını sor user'a ne özellik eklersek pagination yapabiliriz?
+- getUser fonksiyonunda dto dönüyoruz ama bazen direkt user modeline ihtiyaç duyuyorum. Başka bir fonksiyon mu eklemeliyim yoksa mapping işlemini controllerda mı yapmalıyım?
+Böyle bir fonksiyonda iki iş yapıyorum single responsible olmuyor?
 
 Yapılacaklar:
-    + controller adviser yeni class exceptionlar için
-    + hata için dto oluşturup
+    - unit test
     - javadoc
 
 Book Part:
     - getBooks
     - addBook
     - deleteBook
-
-Fix:
-    - exception description.
-    - google-api-wrapper'a yorum satırı

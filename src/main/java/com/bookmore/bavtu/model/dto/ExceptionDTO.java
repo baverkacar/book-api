@@ -16,6 +16,14 @@ public class ExceptionDTO {
         this.message = message;
         this.timeStamp = timeStamp;
     }
+    public static ExceptionDTO convertExceptionToExceptionDTO(HttpStatus exceptionStatus, String message){
+        return new ExceptionDTO(
+                exceptionStatus,
+                exceptionStatus.value(),
+                message,
+                LocalDateTime.now()
+        );
+    }
 
     public HttpStatus getHttpStatus() {
         return httpStatus;

@@ -13,13 +13,10 @@ import com.bookmore.bavtu.model.dto.UserDTO;
 import com.bookmore.bavtu.repository.UserRepository;
 import com.bookmore.bavtu.service.UserService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+
 @Service
-@Slf4j //logger
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
@@ -28,12 +25,12 @@ public class UserServiceImpl implements UserService {
     /**
      * Create user method
      * @param userSignUpRequest
-     * @return UserDTO - Http Status: 201 (CREATED)
+     * @return UserDTO
      * @throws BadPasswordException
      * @throws UserExistsException
      */
     @Override
-    public ResponseEntity<UserDTO> create(UserSignUpRequest userSignUpRequest) throws BadPasswordException{
+    public UserDTO createUser(UserSignUpRequest userSignUpRequest) throws BadPasswordException, UserExistsException{
         //Checking given username and email are already exist or not.
         if(isUsernameExists(userSignUpRequest.getUsername()) || isEmailExists(userSignUpRequest.getEmail())){
             throw new UserExistsException("User is already created with given info.");
@@ -42,44 +39,39 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.userSignUpRequestToUser(userSignUpRequest);
         user = userRepository.save(user);
 
-        // After saving user, maps User to UserDTO model to returns it.
-        log.info("New user created with id: " + user.getId());
-        return new ResponseEntity(userMapper.userToUserDTO(user), HttpStatus.CREATED);
-
+        return userMapper.userToUserDTO(user);
     }
 
     /**
      * Get single user method
      * @param id
-     * @return UserDTO - Http Status: 202 (ACCEPTED)
+     * @return UserDTO
      * @throws UserNotFoundException
      */
     @Override
-    public ResponseEntity<UserDTO> get(String id) {
+    public UserDTO getUserByID(String id) throws UserNotFoundException {
         // Finding user with given id.
         User user = userRepository.findById(id).orElseThrow(()-> new UserNotFoundException("User did not found with given id."));
         // After getting user, maps User to UserDTO model to returns it.
-        return new ResponseEntity(userMapper.userToUserDTO(user), HttpStatus.ACCEPTED);
+        return userMapper.userToUserDTO(user);
     }
 
     /**
      * Delete user method
      * @param deleteUserRequest
-     * @return String - Http Status: 200 (OK)
+     * @return void
      * @throws UserNotFoundException
-     * @throws BadPasswordException
+     * @throws IncorrectPasswordException
      */
     @Override
-    public ResponseEntity<String> delete(DeleteUserRequest deleteUserRequest) {
+    public void deleteUser(DeleteUserRequest deleteUserRequest) throws UserNotFoundException, IncorrectPasswordException {
         // Getting user id and checks if user's existence.
         String userId = deleteUserRequest.getId();
         User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User did not found with given id."));
 
         // Checking passwords' equality.
         if(user.getPassword().equals(deleteUserRequest.getPassword())){
-            log.info("User deleted with given id: " + user.getId());
             userRepository.delete(user);
-            return new ResponseEntity("User deleted with given id: " + userId, HttpStatus.OK);
         }
         throw new IncorrectPasswordException("Passwords do not match");
     }
@@ -87,12 +79,12 @@ public class UserServiceImpl implements UserService {
     /**
      * Update user's password method
      * @param updateUserPasswordRequest
-     * @return UserDTO - Http Status: 200 (OK)
+     * @return UserDTO
      * @throws UserNotFoundException
      * @throws IncorrectPasswordException
      */
     @Override
-    public ResponseEntity<UserDTO> update(UpdateUserPasswordRequest updateUserPasswordRequest) {
+    public UserDTO updateUserPassword(UpdateUserPasswordRequest updateUserPasswordRequest) {
         String userId = updateUserPasswordRequest.getId();
         User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found with given id."));
 
@@ -100,8 +92,7 @@ public class UserServiceImpl implements UserService {
         if(user.getPassword().equals(userPassword)){
             user.setPassword(updateUserPasswordRequest.getNewPassword());
             userRepository.save(user);
-            log.info("User's password changed successfully with given id: " + userId);
-            return new ResponseEntity(userMapper.userToUserDTO(user), HttpStatus.OK);
+            return userMapper.userToUserDTO(user);
         }
         throw new IncorrectPasswordException("Passwords do not match");
     }

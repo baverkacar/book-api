@@ -7,8 +7,8 @@ import com.bookmore.bavtu.model.dto.UserDTO;
 import org.springframework.http.ResponseEntity;
 
 public interface UserService {
-    public ResponseEntity<UserDTO> create(UserSignUpRequest userSignUpRequest);
-    public ResponseEntity<UserDTO> get(String id);
-    public ResponseEntity<String> delete(DeleteUserRequest deleteUserRequest);
-    public ResponseEntity<UserDTO> update(UpdateUserPasswordRequest updateUserPasswordRequest);
+    public UserDTO createUser(UserSignUpRequest userSignUpRequest);
+    public UserDTO getUserByID(String id);
+    public void deleteUser(DeleteUserRequest deleteUserRequest);
+    public UserDTO updateUserPassword(UpdateUserPasswordRequest updateUserPasswordRequest);
 }
