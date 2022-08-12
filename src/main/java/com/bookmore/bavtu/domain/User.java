@@ -1,6 +1,5 @@
 package com.bookmore.bavtu.domain;
 
-
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
@@ -17,7 +16,6 @@ import java.util.List;
 public class User {
     @Id
     private String id;
-
     private String username;
     private String password;
     private String email;
@@ -28,4 +26,7 @@ public class User {
 
     @LastModifiedDate
     private LocalDateTime updatedAt;
+
+    @Version
+    private Long version;
 }

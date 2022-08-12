@@ -2,7 +2,6 @@ package com.bookmore.bavtu.service.impl;
 
 
 import com.bookmore.bavtu.model.api.book.GoogleBookAPIResponse;
-import com.bookmore.bavtu.model.api.book.GoogleBookVolumeInfo;
 import com.bookmore.bavtu.service.BooksAPIService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,11 +17,11 @@ public class GoogleBooksAPIServiceImpl implements BooksAPIService {
     private final RestTemplate restTemplate = new RestTemplate();
 
     /**
-     * @param  name
+     * @param name
      * @return GoogleBookAPIRespone - Http Status: 200 (OK)
      */
     @Override
-    public ResponseEntity<GoogleBookVolumeInfo[]> get(String name) {
+    public ResponseEntity get(String name) {
         String url = API_URL + "?q=" +"intitle:" + name + "&maxResults="+ MAX_RESULT +"&printType=books" +  "&key=" + API_KEY;
         ResponseEntity<GoogleBookAPIResponse> googleBookAPIResponse =  restTemplate.getForEntity(url, GoogleBookAPIResponse.class);
         return new ResponseEntity(googleBookAPIResponse, HttpStatus.OK);
