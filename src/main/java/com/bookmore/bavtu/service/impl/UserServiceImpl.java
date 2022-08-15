@@ -72,8 +72,9 @@ public class UserServiceImpl implements UserService {
         // Checking passwords' equality.
         if(user.getPassword().equals(deleteUserRequest.getPassword())){
             userRepository.delete(user);
+        }else{
+            throw new IncorrectPasswordException("Passwords do not match");
         }
-        throw new IncorrectPasswordException("Passwords do not match");
     }
 
     /**

@@ -19,14 +19,13 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class UserController {
     private final UserServiceImpl userService;
-
     /**
      *  CRUD ENDPOINTS
      */
     @PostMapping("/create")
     public ResponseEntity<UserDTO> createUser(@Valid @RequestBody UserSignUpRequest userSignUpRequest){
         UserDTO createdUser = userService.createUser(userSignUpRequest);
-        log.debug("User created: " + createdUser);
+        log.info("User created: " + createdUser);
         return new ResponseEntity(createdUser, HttpStatus.CREATED);
     }
 
@@ -39,14 +38,14 @@ public class UserController {
     @DeleteMapping("/delete")
     public ResponseEntity<Void> delete(@Valid @RequestBody DeleteUserRequest deleteUserRequest) {
         userService.deleteUser(deleteUserRequest);
-        log.debug("User deleted with given id: " + deleteUserRequest.getId());
+        log.info("User deleted with given id: " + deleteUserRequest.getId());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PatchMapping("/update")
     public ResponseEntity<UserDTO> update(@Valid @RequestBody UpdateUserPasswordRequest updateUserPasswordRequest){
         UserDTO updatedUser =  userService.updateUserPassword(updateUserPasswordRequest);
-        log.debug("User's password changed successfully with given id: " + updatedUser);
+        log.info("User's password changed successfully with given id: " + updatedUser);
         return new ResponseEntity(updatedUser, HttpStatus.OK);
     }
 }
