@@ -10,15 +10,24 @@ Böyle bir fonksiyonda iki iş yapıyorum single responsible olmuyor?
 
 Backend:
     - unit test
+    - email onaylama
+    - login işlemleri
     - javadoc
     - Redis cache (son arananlar)
-    - login işlemleri
     - ci/cd
 
 Frontend:
+    - main page
+    - sign up
+    - login
+    - profil
+    - giriş yaptıktan sonraki main page
+
 
 
 Book Part:
     - getBooks
     - addBook
     - deleteBook
+
+-github frontend-backend
