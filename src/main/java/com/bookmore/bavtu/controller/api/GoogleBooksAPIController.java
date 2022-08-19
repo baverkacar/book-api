@@ -1,4 +1,4 @@
-package com.bookmore.bavtu.controller;
+package com.bookmore.bavtu.controller.api;
 
 import com.bookmore.bavtu.model.api.book.GoogleBookVolumeInfo;
 import com.bookmore.bavtu.service.impl.GoogleBooksAPIServiceImpl;

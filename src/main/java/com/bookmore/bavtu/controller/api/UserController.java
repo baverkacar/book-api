@@ -1,4 +1,4 @@
-package com.bookmore.bavtu.controller;
+package com.bookmore.bavtu.controller.api;
 
 import com.bookmore.bavtu.model.api.user.UserSignUpRequest;
 import com.bookmore.bavtu.model.api.user.DeleteUserRequest;
