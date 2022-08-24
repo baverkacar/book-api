@@ -31,7 +31,6 @@ import org.springframework.test.web.servlet.*;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(UserController.class)
-@Slf4j
 @AutoConfigureWebClient
 public class UserControllerTest {
 
