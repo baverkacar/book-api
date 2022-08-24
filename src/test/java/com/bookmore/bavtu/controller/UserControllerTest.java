@@ -48,7 +48,7 @@ public class UserControllerTest {
     private final String CONTENT_TYPE = "application/json";
 
     @Test
-    void whenCreateUser_WithValidInput_thenReturn201() throws Exception {
+    void whenCreateUser_withValidInput_thenReturn201() throws Exception {
         // given
         UserSignUpRequest userSignUpRequest = UserSignUpRequest.builder()
                 .username("testUser")
@@ -86,7 +86,7 @@ public class UserControllerTest {
 
 
     @Test
-    void whenCreateUser_WithInvalidPassword_thenReturn400() throws Exception{
+    void whenCreateUser_withInvalidPassword_thenReturn400() throws Exception{
         // given
         UserSignUpRequest userSignUpRequest = UserSignUpRequest.builder()
                 .username("testUser")
@@ -107,7 +107,7 @@ public class UserControllerTest {
 
 
     @Test
-    void whenCreateUser_WithExistedUser_thenReturn409() throws Exception{
+    void whenCreateUser_withExistedUser_thenReturn409() throws Exception{
         // given
         UserSignUpRequest userSignUpRequest = UserSignUpRequest.builder()
                 .username("testUser")
@@ -137,7 +137,7 @@ public class UserControllerTest {
 
 
     @Test
-    void whenGetUser_WithValidInput_thenReturn200() throws Exception {
+    void whenGetUser_withValidInput_thenReturn200() throws Exception {
         // given
         String userID = "62f6a94295e39057cdb3fa27";
 
@@ -167,7 +167,7 @@ public class UserControllerTest {
 
 
     @Test
-    void whenGetUser_WithInvalidInput_thenReturn404() throws Exception{
+    void whenGetUser_withInvalidInput_thenReturn404() throws Exception{
         // given
         String userID = "invalidUserID";
 
@@ -188,7 +188,7 @@ public class UserControllerTest {
 
 
     @Test
-    void whenDeleteUser_WithValidInput_thenReturn204() throws Exception{
+    void whenDeleteUser_withValidInput_thenReturn204() throws Exception{
         // given
         DeleteUserRequest deleteUserRequest = DeleteUserRequest.builder()
                 .id("62f6a94295e39057cdb3fa27")
@@ -214,7 +214,7 @@ public class UserControllerTest {
 
 
     @Test
-    void whenDeleteUser_WithInvalidID_thenReturn404() throws Exception{
+    void whenDeleteUser_withInvalidID_thenReturn404() throws Exception{
         // given
         DeleteUserRequest deleteUserRequest = DeleteUserRequest.builder()
                 .id("invalidID")
@@ -238,7 +238,7 @@ public class UserControllerTest {
     }
 
 
-    @Test void whenDeleteUser_WithInValidPassword_thenReturn401() throws Exception{
+    @Test void whenDeleteUser_withInValidPassword_thenReturn401() throws Exception{
         // given
         DeleteUserRequest deleteUserRequest = DeleteUserRequest.builder()
                 .id("62f6a94295e39057cdb3fa27")
@@ -264,7 +264,7 @@ public class UserControllerTest {
 
 
     @Test
-    void whenUpdateUserPassword_WithValidInput_thenReturn200() throws Exception {
+    void whenUpdateUserPassword_withValidInput_thenReturn200() throws Exception {
         // given
         UpdateUserPasswordRequest updateUserPasswordRequest = UpdateUserPasswordRequest.builder()
                 .id("62f6a94295e39057cdb3fa27")
@@ -302,7 +302,7 @@ public class UserControllerTest {
 
 
     @Test
-    void whenUpdateUserPasswordWithInvalidID_thenReturn404() throws Exception{
+    void whenUpdateUserPassword_withInvalidID_thenReturn404() throws Exception{
         // given
         UpdateUserPasswordRequest updateUserPasswordRequest = UpdateUserPasswordRequest.builder()
                 .id("invalidID")
@@ -329,7 +329,7 @@ public class UserControllerTest {
     }
 
     @Test
-    void whenUpdateUserPassword_WithInvalidCurrentPassword_thenReturn401() throws Exception{
+    void whenUpdateUserPassword_withInvalidCurrentPassword_thenReturn401() throws Exception{
         // given
         UpdateUserPasswordRequest updateUserPasswordRequest = UpdateUserPasswordRequest.builder()
                 .id("62f6a94295e39057cdb3fa27")
@@ -356,7 +356,7 @@ public class UserControllerTest {
     }
 
     @Test
-    void whenUpdateUserPassword_WithInvalidCurrentPassword_thenReturn400() throws Exception{
+    void whenUpdateUserPassword_withInvalidNewPassword_thenReturn400() throws Exception{
         // given
         UpdateUserPasswordRequest updateUserPasswordRequest = UpdateUserPasswordRequest.builder()
                 .id("62f6a94295e39057cdb3fa27")
