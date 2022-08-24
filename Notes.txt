@@ -3,6 +3,7 @@ Sorulacaklar:
 + api key saklama?(secrethub-yaml)
 + pagination'ı nasıl yapacagını sor user'a ne özellik eklersek pagination yapabiliriz?
 - datetimelar database'de gözükmüyor.
+- tests
 
 Backend:
     - unit test
