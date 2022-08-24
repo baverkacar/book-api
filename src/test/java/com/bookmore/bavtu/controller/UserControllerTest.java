@@ -7,14 +7,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.bookmore.bavtu.exception.IncorrectPasswordException;
-import com.bookmore.bavtu.exception.UserExistsException;
-import com.bookmore.bavtu.exception.UserNotFoundException;
+import com.bookmore.bavtu.exception.user.IncorrectPasswordException;
+import com.bookmore.bavtu.exception.user.UserExistsException;
+import com.bookmore.bavtu.exception.user.UserNotFoundException;
 import com.bookmore.bavtu.model.api.user.DeleteUserRequest;
 import com.bookmore.bavtu.model.api.user.UpdateUserPasswordRequest;
 import com.bookmore.bavtu.model.api.user.UserSignUpRequest;
 import com.bookmore.bavtu.model.dto.UserDTO;
-import com.bookmore.bavtu.repository.UserRepository;
 import com.bookmore.bavtu.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -38,9 +37,6 @@ public class UserControllerTest {
 
     @MockBean
     UserService userService;
-
-    @MockBean
-    UserRepository userRepository;
 
     @Autowired
     private  MockMvc mockMvc;

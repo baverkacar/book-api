@@ -1,10 +1,10 @@
 package com.bookmore.bavtu.service.impl;
 
 import com.bookmore.bavtu.domain.User;
-import com.bookmore.bavtu.exception.BadPasswordException;
-import com.bookmore.bavtu.exception.IncorrectPasswordException;
-import com.bookmore.bavtu.exception.UserExistsException;
-import com.bookmore.bavtu.exception.UserNotFoundException;
+import com.bookmore.bavtu.exception.user.BadPasswordException;
+import com.bookmore.bavtu.exception.user.IncorrectPasswordException;
+import com.bookmore.bavtu.exception.user.UserExistsException;
+import com.bookmore.bavtu.exception.user.UserNotFoundException;
 import com.bookmore.bavtu.mapper.UserMapper;
 import com.bookmore.bavtu.model.api.user.UserSignUpRequest;
 import com.bookmore.bavtu.model.api.user.DeleteUserRequest;

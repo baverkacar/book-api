@@ -1,9 +1,9 @@
 package com.bookmore.bavtu.controller.advice;
 
-import com.bookmore.bavtu.exception.BadPasswordException;
-import com.bookmore.bavtu.exception.IncorrectPasswordException;
-import com.bookmore.bavtu.exception.UserExistsException;
-import com.bookmore.bavtu.exception.UserNotFoundException;
+import com.bookmore.bavtu.exception.user.BadPasswordException;
+import com.bookmore.bavtu.exception.user.IncorrectPasswordException;
+import com.bookmore.bavtu.exception.user.UserExistsException;
+import com.bookmore.bavtu.exception.user.UserNotFoundException;
 import com.bookmore.bavtu.model.dto.ExceptionDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
