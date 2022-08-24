@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
      * @throws IncorrectPasswordException
      */
     @Override
-    public void deleteUser(DeleteUserRequest deleteUserRequest) throws UserNotFoundException, IncorrectPasswordException {
+    public String deleteUser(DeleteUserRequest deleteUserRequest) throws UserNotFoundException, IncorrectPasswordException {
         // Getting user id and checks if user's existence.
         String userId = deleteUserRequest.getId();
         User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User did not found with given id."));
@@ -72,6 +72,7 @@ public class UserServiceImpl implements UserService {
         // Checking passwords' equality.
         if(user.getPassword().equals(deleteUserRequest.getPassword())){
             userRepository.delete(user);
+            return userId;
         }else{
             throw new IncorrectPasswordException("Passwords do not match");
         }

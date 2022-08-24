@@ -4,6 +4,7 @@ import com.bookmore.bavtu.model.api.user.UserSignUpRequest;
 import com.bookmore.bavtu.model.api.user.DeleteUserRequest;
 import com.bookmore.bavtu.model.api.user.UpdateUserPasswordRequest;
 import com.bookmore.bavtu.model.dto.UserDTO;
+import com.bookmore.bavtu.service.UserService;
 import com.bookmore.bavtu.service.impl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +19,9 @@ import javax.validation.Valid;
 @Slf4j
 @RequiredArgsConstructor
 public class UserController {
-    private final UserServiceImpl userService;
+    private final UserService userService;
+
+
     /**
      *  CRUD ENDPOINTS
      */
@@ -36,7 +39,7 @@ public class UserController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<Void> delete(@Valid @RequestBody DeleteUserRequest deleteUserRequest) {
+    public ResponseEntity<String> delete(@Valid @RequestBody DeleteUserRequest deleteUserRequest) {
         userService.deleteUser(deleteUserRequest);
         log.info("User deleted with given id: " + deleteUserRequest.getId());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
