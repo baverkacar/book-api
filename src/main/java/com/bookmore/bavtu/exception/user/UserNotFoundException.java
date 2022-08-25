@@ -1,4 +1,4 @@
-package com.bookmore.bavtu.exception;
+package com.bookmore.bavtu.exception.user;
 
 
 /*

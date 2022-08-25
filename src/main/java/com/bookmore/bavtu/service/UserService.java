@@ -9,6 +9,6 @@ import org.springframework.http.ResponseEntity;
 public interface UserService {
     public UserDTO createUser(UserSignUpRequest userSignUpRequest);
     public UserDTO getUserByID(String id);
-    public void deleteUser(DeleteUserRequest deleteUserRequest);
+    public String deleteUser(DeleteUserRequest deleteUserRequest);
     public UserDTO updateUserPassword(UpdateUserPasswordRequest updateUserPasswordRequest);
 }

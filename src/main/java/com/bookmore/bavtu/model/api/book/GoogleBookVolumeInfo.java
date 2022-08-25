@@ -5,7 +5,7 @@ import lombok.Data;
 
 import java.util.List;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties(ignoreUnknown = true) // bunun sayesinde null value'ları alabiliyoruz. Hata yollamıyor google api.
 @Data
 public class GoogleBookVolumeInfo {
     public String title;

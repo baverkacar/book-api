@@ -1,10 +1,10 @@
 package com.bookmore.bavtu.service.impl;
 
 import com.bookmore.bavtu.domain.User;
-import com.bookmore.bavtu.exception.BadPasswordException;
-import com.bookmore.bavtu.exception.IncorrectPasswordException;
-import com.bookmore.bavtu.exception.UserExistsException;
-import com.bookmore.bavtu.exception.UserNotFoundException;
+import com.bookmore.bavtu.exception.user.BadPasswordException;
+import com.bookmore.bavtu.exception.user.IncorrectPasswordException;
+import com.bookmore.bavtu.exception.user.UserExistsException;
+import com.bookmore.bavtu.exception.user.UserNotFoundException;
 import com.bookmore.bavtu.mapper.UserMapper;
 import com.bookmore.bavtu.model.api.user.UserSignUpRequest;
 import com.bookmore.bavtu.model.api.user.DeleteUserRequest;
@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
      * @throws IncorrectPasswordException
      */
     @Override
-    public void deleteUser(DeleteUserRequest deleteUserRequest) throws UserNotFoundException, IncorrectPasswordException {
+    public String deleteUser(DeleteUserRequest deleteUserRequest) throws UserNotFoundException, IncorrectPasswordException {
         // Getting user id and checks if user's existence.
         String userId = deleteUserRequest.getId();
         User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User did not found with given id."));
@@ -72,8 +72,10 @@ public class UserServiceImpl implements UserService {
         // Checking passwords' equality.
         if(user.getPassword().equals(deleteUserRequest.getPassword())){
             userRepository.delete(user);
+            return userId;
+        }else{
+            throw new IncorrectPasswordException("Passwords do not match");
         }
-        throw new IncorrectPasswordException("Passwords do not match");
     }
 
     /**
