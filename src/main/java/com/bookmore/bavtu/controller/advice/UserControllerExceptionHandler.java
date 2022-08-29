@@ -1,9 +1,6 @@
 package com.bookmore.bavtu.controller.advice;
 
-import com.bookmore.bavtu.exception.user.BadPasswordException;
-import com.bookmore.bavtu.exception.user.IncorrectPasswordException;
-import com.bookmore.bavtu.exception.user.UserExistsException;
-import com.bookmore.bavtu.exception.user.UserNotFoundException;
+import com.bookmore.bavtu.exception.user.*;
 import com.bookmore.bavtu.model.dto.ExceptionDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +35,13 @@ public class UserControllerExceptionHandler {
     public ResponseEntity<ExceptionDTO> handleUserExistsException(UserExistsException userExistsException){
         HttpStatus exceptionStatus = HttpStatus.CONFLICT;
         ExceptionDTO exceptionDTO = ExceptionDTO.convertExceptionToExceptionDTO(exceptionStatus, userExistsException.getMessage());
+        return new ResponseEntity<>(exceptionDTO, exceptionStatus);
+    }
+
+    @ExceptionHandler(value = UserAlreadyHasGivenBookException.class)
+    public ResponseEntity<ExceptionDTO> handleUserAlreadyHasGivenBookException(UserAlreadyHasGivenBookException userAlreadyHasGivenBookException) {
+        HttpStatus exceptionStatus = HttpStatus.CONFLICT;
+        ExceptionDTO exceptionDTO = ExceptionDTO.convertExceptionToExceptionDTO(exceptionStatus, userAlreadyHasGivenBookException.getMessage());
         return new ResponseEntity<>(exceptionDTO, exceptionStatus);
     }
 }

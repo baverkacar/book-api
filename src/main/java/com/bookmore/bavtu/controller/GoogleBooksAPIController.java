@@ -41,6 +41,6 @@ public class GoogleBooksAPIController {
         if (bucket.tryConsume(1)){
             return new ResponseEntity<>(googleBooksAPIService.get(name), HttpStatus.OK);
         }
-        else throw new TooManyRequestException("You made too many requests to the API.");
+        throw new TooManyRequestException("You made too many requests to the API.");
     }
 }

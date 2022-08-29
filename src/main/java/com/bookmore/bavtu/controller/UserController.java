@@ -1,5 +1,6 @@
 package com.bookmore.bavtu.controller;
 
+import com.bookmore.bavtu.model.api.book.GoogleBookVolumeInfo;
 import com.bookmore.bavtu.model.api.user.UserSignUpRequest;
 import com.bookmore.bavtu.model.api.user.DeleteUserRequest;
 import com.bookmore.bavtu.model.api.user.UpdateUserPasswordRequest;
@@ -39,7 +40,7 @@ public class UserController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<String> delete(@Valid @RequestBody DeleteUserRequest deleteUserRequest) {
+    public ResponseEntity delete(@Valid @RequestBody DeleteUserRequest deleteUserRequest) {
         userService.deleteUser(deleteUserRequest);
         log.info("User deleted with given id: " + deleteUserRequest.getId());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -51,4 +52,12 @@ public class UserController {
         log.info("User's password changed successfully with given id: " + updatedUser);
         return new ResponseEntity(updatedUser, HttpStatus.OK);
     }
+
+    @PatchMapping("/{id}/add-book")
+    public ResponseEntity addBookToUser(@PathVariable String id, @RequestBody GoogleBookVolumeInfo googleBookVolumeInfo){
+        userService.addBookToUser(id, googleBookVolumeInfo);
+        log.info("Book added to user with id: " + id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }
