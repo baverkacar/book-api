@@ -1,11 +1,9 @@
 package com.bookmore.bavtu.service.impl;
 
 import com.bookmore.bavtu.domain.User;
-import com.bookmore.bavtu.exception.user.BadPasswordException;
-import com.bookmore.bavtu.exception.user.IncorrectPasswordException;
-import com.bookmore.bavtu.exception.user.UserExistsException;
-import com.bookmore.bavtu.exception.user.UserNotFoundException;
+import com.bookmore.bavtu.exception.user.*;
 import com.bookmore.bavtu.mapper.UserMapper;
+import com.bookmore.bavtu.model.api.book.GoogleBookVolumeInfo;
 import com.bookmore.bavtu.model.api.user.UserSignUpRequest;
 import com.bookmore.bavtu.model.api.user.DeleteUserRequest;
 import com.bookmore.bavtu.model.api.user.UpdateUserPasswordRequest;
@@ -14,6 +12,8 @@ import com.bookmore.bavtu.repository.UserRepository;
 import com.bookmore.bavtu.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 
 
 @Service
@@ -66,13 +66,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public String deleteUser(DeleteUserRequest deleteUserRequest) throws UserNotFoundException, IncorrectPasswordException {
         // Getting user id and checks if user's existence.
-        String userId = deleteUserRequest.getId();
-        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User did not found with given id."));
+        String userID = deleteUserRequest.getId();
+        User user = userRepository.findById(userID).orElseThrow(() -> new UserNotFoundException("User did not found with given id."));
 
         // Checking passwords' equality.
         if(user.getPassword().equals(deleteUserRequest.getPassword())){
             userRepository.delete(user);
-            return userId;
+            return userID;
         }else{
             throw new IncorrectPasswordException("Passwords do not match");
         }
@@ -87,8 +87,8 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public UserDTO updateUserPassword(UpdateUserPasswordRequest updateUserPasswordRequest) {
-        String userId = updateUserPasswordRequest.getId();
-        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found with given id."));
+        String userID = updateUserPasswordRequest.getId();
+        User user = userRepository.findById(userID).orElseThrow(() -> new UserNotFoundException("User not found with given id."));
 
         String userPassword = updateUserPasswordRequest.getCurrentPassword();
         if(user.getPassword().equals(userPassword)){
@@ -97,6 +97,18 @@ public class UserServiceImpl implements UserService {
             return userMapper.userToUserDTO(user);
         }
         throw new IncorrectPasswordException("Passwords do not match");
+    }
+
+    @Override
+    public String addBookToUser(String userID, GoogleBookVolumeInfo googleBookVolumeInfo) {
+        User user = userRepository.findById(userID).orElseThrow(() -> new UserNotFoundException("User not found with given id."));
+
+        if (!user.getLibrary().contains(googleBookVolumeInfo)){
+            user.addBook(googleBookVolumeInfo);
+            userRepository.save(user);
+            return "Book added to user: " + userID;
+        }
+        throw new UserAlreadyHasGivenBookException("Given book is already added to user's library.");
     }
 
     /**
