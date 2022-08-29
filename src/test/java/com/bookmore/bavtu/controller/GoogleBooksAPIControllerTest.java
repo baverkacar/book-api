@@ -3,6 +3,10 @@ package com.bookmore.bavtu.controller;
 import com.bookmore.bavtu.exception.book.BookNotFoundException;
 import com.bookmore.bavtu.model.api.book.GoogleBook;
 import com.bookmore.bavtu.service.impl.GoogleBooksAPIServiceImpl;
+import io.github.bucket4j.Bandwidth;
+import io.github.bucket4j.Bucket;
+import io.github.bucket4j.Bucket4j;
+import io.github.bucket4j.Refill;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,9 +19,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -76,5 +84,31 @@ class GoogleBooksAPIControllerTest {
 
         actions.andExpect(status().isNotFound());
         // actions.andDo(print());
+    }
+
+    @Test
+    void whenGetGoogleBookWith_tooManyRequest_thenReturn429() throws Exception{
+        // given
+        String bookName = "test";
+        Refill refill = Refill.intervally(5, Duration.ofMinutes(1));
+        Bandwidth limit = Bandwidth.classic(5, refill);
+        Bucket bucket = Bucket4j.builder()
+                .addLimit(limit)
+                .build();
+        ResultActions actions;
+
+        // consuming rate limit with creating request
+        for (int i = 1; i <= 5; i++) {
+            assertTrue(bucket.tryConsume(1));
+            actions = mockMvc.perform(get(URL + "/" + bookName)
+                    .contentType(CONTENT_TYPE));
+        }
+
+        // check that rate limit has been exceeded
+        assertFalse(bucket.tryConsume(1));
+        actions = mockMvc.perform(get(URL + "/" + bookName)
+                .contentType(CONTENT_TYPE));
+
+        actions.andExpect(status().isTooManyRequests());
     }
 }
